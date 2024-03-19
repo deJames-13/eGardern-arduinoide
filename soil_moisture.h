@@ -1,14 +1,18 @@
 #ifndef SOIL_MOISTURE_H
 #define SOIL_MOISTURE_H
 
-#include "pinconfig.h"
-
 class SoilMoisture
 {
 public:
-    SoilMoisture();
+    SoilMoisture(int pin);
     void begin();
     int getMoisture();
+    bool isTooDry();
+    bool isTooWet();
+
+private:
+    int pin;
+    int moisture;
 };
 
 #endif

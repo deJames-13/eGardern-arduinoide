@@ -1,18 +1,23 @@
+// FIXME: TEST OUTPUT
 #include "web_server.h"
 
-MyWebServer::MyWebServer() {}
+MyWebServer::MyWebServer() : server(80) {}
 
 void MyWebServer::begin()
 {
+
+    if (!SPIFFS.begin(true))
+    {
+        Serial.println("An error has occurred while mounting SPIFFS");
+        return;
+    }
     server.begin();
+
     // MAIN
     server.on("/", HTTP_GET, [this]()
-              { server.send(200, "text/html", generateHTML()); });
-
+              { server.send(200, "text/html", readIndexFile()); });
     server.on("/data", HTTP_GET, [this]()
               { server.send(200, "application/json", generateJSON()); });
-
-    server.begin();
 }
 
 void MyWebServer::handleClient()
@@ -37,13 +42,12 @@ String MyWebServer::generateHTML()
     html += "<p>Humidity: " + String(hum) + "%</p>";
     html += "<p>Soil Moisture: " + String(moist) + "</p>";
     html += "<p>Water Value: " + String(water) + "</p>";
-
     html += "</body></html>";
     return html;
 }
 String MyWebServer::readIndexFile()
 {
-    File indexFile = SPIFFS.open("/index.html", "r");
+    File indexFile = SPIFFS.open("/index.html");
     if (!indexFile)
     {
         Serial.println("Failed to open index.html file");
