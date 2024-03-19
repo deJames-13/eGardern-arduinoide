@@ -12,21 +12,21 @@
 #include <WiFi.h>
 
 // SENSORS
-#include "sensors/dhtu_sensor.h" // new
-#include "sensors/soil_moisture.h"
-#include "sensors/water_level.h"
+#include "dhtu_sensor.h" // new
+#include "soil_moisture.h"
+#include "water_level.h"
 
 // OUTPUTS
-#include "outputs/buzzer.h"
-#include "outputs/fans.h"
-#include "outputs/water_valve.h"
+#include "buzzer.h"
+#include "fans.h"
+#include "water_valve.h"
 
 // DISPLAY
-#include "display/oled.h"
+#include "oled.h"
 
 // WEB SERVICE
-#include "webserver/web_server.h"
-#include "webserver/network_manager.h"
-#include "webserver/database_manager.h"
+#include "web_server.h"
+#include "network_manager.h"
+#include "database_manager.h"
 
 #endif
